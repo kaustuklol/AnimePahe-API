@@ -1,198 +1,375 @@
 # 🎌 AnimePahe API
 
-> A lightweight, free-to-use AnimePahe scraper API designed to make anime data and streaming information easy to access from your own applications.
+> A lightweight, open-source AnimePahe scraper API built with Python & Flask. Search anime, retrieve episode information, and fetch streaming sources through a simple REST API.
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/kaustuklol/AnimePahe-API)
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/)
-[![API](https://img.shields.io/badge/API-REST-blue?style=for-the-badge)](#-api-endpoints)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](#-license)
+<p align="center">
 
----
+  <a href="https://github.com/kaustuklol/AnimePahe-API">
+    <img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github" alt="GitHub">
+  </a>
 
-## ✨ Overview
+  <a href="https://vercel.com/">
+    <img src="https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel" alt="Vercel">
+  </a>
 
-**AnimePahe API** is an unofficial scraper/API built to provide developers with an easy way to retrieve anime information without having to build their own scraper from scratch.
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
 
-The project is designed with simplicity in mind:
+  <img src="https://img.shields.io/badge/Flask-REST%20API-000000?style=for-the-badge&logo=flask" alt="Flask">
 
-**Anime Website → Scraper → REST API → Your Application**
-
-You can use it as the backend for:
-
-- 🎬 Anime streaming websites
-- 🔎 Anime search applications
-- 📱 Anime mobile applications
-- 🤖 Discord/Telegram bots
-- 🧪 Personal projects
-- 🎓 Learning projects
-- 🌐 Custom anime frontends
-
-The API can be deployed independently and consumed by any frontend or application capable of making HTTP requests.
+</p>
 
 ---
 
-## 🚀 Features
+## ✨ What is AnimePahe API?
 
-- 🔍 **Anime Search** — Search anime by title
-- 📺 **Episode Data** — Retrieve episode information
-- 🎞️ **Streaming Sources** — Retrieve available streaming sources
-- 🖼️ **Anime Metadata** — Titles, posters and related information
-- ⚡ **Lightweight** — Designed to keep the API simple and easy to deploy
-- 🌍 **Free to Use** — Use your own deployed instance for your projects
-- ☁️ **Vercel Ready** — Designed for easy serverless deployment
-- 🔌 **REST API** — Easy to integrate with any frontend or application
-- 🛠️ **Open Source** — Fork it, modify it and build on top of it
+**AnimePahe API** is an unofficial REST API that provides a simple interface for retrieving anime data from AnimePahe.
 
----
-
-## 🧩 How It Works
-
-The project acts as a bridge between an anime source website and your application.
+Instead of implementing scraping logic directly inside your frontend, you can use this project as a lightweight backend:
 
 ```text
-                    ┌─────────────────┐
-                    │   Anime Source  │
-                    │    Website      │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │     Scraper     │
-                    │  Data Extraction │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │   REST API      │
-                    │    Backend      │
-                    └────────┬────────┘
-                             │
-                    JSON Response
-                             │
-                             ▼
-              ┌───────────────────────────┐
-              │       Your Application    │
-              │                           │
-              │  Website / App / Bot etc. │
-              └───────────────────────────┘
+Anime Website
+      │
+      ▼
+   Scraper
+      │
+      ▼
+ Flask REST API
+      │
+      ▼
+ Your Website / App / Bot
 ```
 
-This means your frontend doesn't need to directly understand how the source website works.
+The project is designed to be:
+
+- ⚡ Lightweight
+- 🐍 Python-based
+- 🔌 REST API based
+- ☁️ Vercel deployable
+- 🛠️ Easy to modify
+- 🌍 Free and open source
+- 🎌 Useful for anime-related projects
+
+The API can be used as a backend for custom anime websites, applications, bots, experiments, and learning projects.
 
 ---
 
-# 📡 API Endpoints
+# 🚀 Features
 
-> The exact endpoints available depend on the current implementation in the repository.
+- 🔎 Search anime
+- 📺 Retrieve anime episode information
+- 🎬 Retrieve streaming/download sources
+- 🆔 Generate episode IDs
+- 🔌 Simple REST endpoints
+- 🐍 Built with Flask
+- 🌐 Scraping powered by BeautifulSoup
+- 🌊 Uses `curl_cffi` for requests
+- 🤖 Selenium support for source extraction
+- ☁️ Vercel deployment configuration included
+- 🧩 Easy to integrate with any frontend
 
-### 🔎 Search Anime
+---
+
+# 🧰 Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| 🐍 Python | Core programming language |
+| 🌶️ Flask | REST API server |
+| 🍲 BeautifulSoup | HTML parsing / scraping |
+| 🌊 curl_cffi | HTTP requests with browser impersonation |
+| 🤖 Selenium | Browser automation for source extraction |
+| 🎌 AnimePahe | Anime data source |
+| ☁️ Vercel | Serverless deployment |
+
+The repository's dependencies are defined in `requirements.txt`, including Flask, AnilistPython, BeautifulSoup, curl_cffi and Selenium.
+
+---
+
+# 📡 API
+
+All AnimePahe endpoints are exposed under:
+
+```text
+/pahe
+```
+
+The API currently provides three main operations:
+
+```text
+GET /pahe/
+GET /pahe/<query>
+GET /pahe/info/<id>
+GET /pahe/watch/<episodeId>
+```
+
+---
+
+## 🏠 API Information
 
 ```http
-GET /search?q=naruto
+GET /pahe/
 ```
 
-Search for anime using a title or keyword.
+Returns basic information about the provider and available routes.
 
-Example:
-
-```bash
-curl "https://YOUR-API.vercel.app/search?q=naruto"
-```
-
----
-
-### 📺 Get Episodes
-
-```http
-GET /episodes?session=ANIME_SESSION
-```
-
-Retrieve episodes associated with an anime session.
-
-Example:
-
-```bash
-curl "https://YOUR-API.vercel.app/episodes?session=YOUR_SESSION"
-```
-
----
-
-### 🎬 Get Streaming Sources
-
-```http
-GET /sources?anime_session=ANIME_SESSION&episode_session=EPISODE_SESSION
-```
-
-Retrieve available sources for a specific episode.
-
-Example:
-
-```bash
-curl "https://YOUR-API.vercel.app/sources?anime_session=YOUR_SESSION&episode_session=YOUR_EPISODE_SESSION"
-```
-
----
-
-## 📦 Example Response
-
-A search request can return structured JSON that can be directly consumed by a frontend:
+Example response:
 
 ```json
-[
-  {
-    "id": 123,
-    "title": "Example Anime",
-    "url": "https://example.com/anime/example",
-    "year": 2025,
-    "poster": "https://example.com/poster.jpg",
-    "type": "TV",
-    "session": "example-session"
-  }
-]
-```
-
-Episode information can similarly be represented as structured objects:
-
-```json
-[
-  {
-    "id": 12345,
-    "number": 1,
-    "title": "Episode 1",
-    "snapshot": "https://example.com/snapshot.jpg",
-    "session": "episode-session"
-  }
-]
+{
+  "Intro": "Welcome to the animepahe provider",
+  "routes": [
+    "/:query",
+    "/info/:anime-session",
+    "/watch/:anime-session/:episode-session"
+  ]
+}
 ```
 
 ---
 
-# 💻 Using the API
+# 🔎 Search Anime
 
-The API can be consumed from practically any programming language.
+```http
+GET /pahe/<query>
+```
 
-### JavaScript
+Search for an anime using its title or search query.
+
+### Example
+
+```http
+GET /pahe/naruto
+```
+
+or:
+
+```bash
+curl "https://YOUR-API.vercel.app/pahe/naruto"
+```
+
+### Response
+
+The scraper requests AnimePahe's search API and converts the returned session identifier into the API's `id` field while retaining the AniList ID separately.
+
+Example structure:
+
+```json
+{
+  "results": [
+    {
+      "id": "anime-session-id",
+      "anilistId": 20
+    }
+  ]
+}
+```
+
+The actual AnimePahe response may contain additional metadata.
+
+---
+
+# 📺 Get Anime Episodes
+
+```http
+GET /pahe/info/<anime-session>
+```
+
+Use the anime session ID returned from the search endpoint.
+
+### Example
+
+```http
+GET /pahe/info/123456
+```
+
+or:
+
+```bash
+curl "https://YOUR-API.vercel.app/pahe/info/123456"
+```
+
+### Response
+
+```json
+{
+  "episodes": [
+    {
+      "episodeId": "123456$episode-session",
+      "episode": 1
+    }
+  ]
+}
+```
+
+The API converts the AnimePahe episode session into an `episodeId` using:
+
+```text
+anime-session$episode-session
+```
+
+This ID can then be passed to the watch endpoint.
+
+---
+
+# 🎬 Get Streaming Sources
+
+```http
+GET /pahe/watch/<episodeId>
+```
+
+The `episodeId` is generated by the `/info/` endpoint.
+
+### Example
+
+```http
+GET /pahe/watch/anime-session$episode-session
+```
+
+Because `$` has special meaning in some environments, URL-encode it when necessary:
+
+```bash
+curl "https://YOUR-API.vercel.app/pahe/watch/anime-session%24episode-session"
+```
+
+The scraper resolves the AnimePahe playback page and attempts to extract the available source.
+
+### Example response
+
+```json
+{
+  "sources": [
+    {
+      "url": "https://example.com/video.mp4",
+      "quality": "720p"
+    },
+    {
+      "url": "Not Available",
+      "quality": "1080p"
+    }
+  ]
+}
+```
+
+If source extraction fails, the API returns an empty source list.
+
+---
+
+# 🔄 Complete API Workflow
+
+The intended workflow is:
+
+```text
+              SEARCH
+                │
+                ▼
+       /pahe/<anime-name>
+                │
+                │ anime session
+                ▼
+             /info/
+                │
+                │ episodeId
+                ▼
+             /watch/
+                │
+                │ streaming source
+                ▼
+          Video Player
+```
+
+### Example
+
+#### 1. Search
+
+```http
+GET /pahe/one-piece
+```
+
+↓
+
+Get the anime session.
+
+#### 2. Get episodes
+
+```http
+GET /pahe/info/<anime-session>
+```
+
+↓
+
+Get an `episodeId`.
+
+#### 3. Get source
+
+```http
+GET /pahe/watch/<episodeId>
+```
+
+↓
+
+Get the available video source.
+
+#### 4. Play
+
+Pass the returned source URL to your video player.
+
+---
+
+# 💻 JavaScript Example
 
 ```javascript
+const API_URL = "https://YOUR-API.vercel.app";
+
+// Search
+const searchResponse = await fetch(
+  `${API_URL}/pahe/naruto`
+);
+
+const searchData = await searchResponse.json();
+
+console.log(searchData);
+```
+
+Get episodes:
+
+```javascript
+const animeId = "YOUR_ANIME_SESSION";
+
 const response = await fetch(
-  "https://YOUR-API.vercel.app/search?q=naruto"
+  `${API_URL}/pahe/info/${animeId}`
 );
 
 const data = await response.json();
 
-console.log(data);
+console.log(data.episodes);
 ```
 
-### Python
+Get streaming source:
+
+```javascript
+const episodeId = "YOUR_EPISODE_ID";
+
+const response = await fetch(
+  `${API_URL}/pahe/watch/${encodeURIComponent(episodeId)}`
+);
+
+const sources = await response.json();
+
+console.log(sources);
+```
+
+---
+
+# 🐍 Python Example
 
 ```python
 import requests
 
-url = "https://YOUR-API.vercel.app/search"
+API_URL = "https://YOUR-API.vercel.app"
 
+# Search
 response = requests.get(
-    url,
-    params={"q": "naruto"}
+    f"{API_URL}/pahe/naruto"
 )
 
 data = response.json()
@@ -200,63 +377,85 @@ data = response.json()
 print(data)
 ```
 
-### cURL
+Get episodes:
 
-```bash
-curl "https://YOUR-API.vercel.app/search?q=naruto"
+```python
+anime_id = "YOUR_ANIME_SESSION"
+
+response = requests.get(
+    f"{API_URL}/pahe/info/{anime_id}"
+)
+
+episodes = response.json()
+
+print(episodes)
+```
+
+Get sources:
+
+```python
+episode_id = "YOUR_EPISODE_ID"
+
+response = requests.get(
+    f"{API_URL}/pahe/watch/{episode_id}"
+)
+
+sources = response.json()
+
+print(sources)
 ```
 
 ---
 
-# ☁️ Deploy on Vercel
+# ☁️ Deploy to Vercel
 
-One of the main goals of this project is to make deployment as simple as possible.
+One of the main advantages of this project is that it includes a Vercel configuration.
 
-### 1. Fork the repository
+The repository contains:
 
-Fork this repository to your own GitHub account.
+```text
+vercel.json
+```
+
+configured to use the Python runtime with `index.py` as the entry point.
+
+## 1. Fork the repository
+
+Fork:
 
 ```text
 https://github.com/kaustuklol/AnimePahe-API
 ```
 
-### 2. Open Vercel
+## 2. Import into Vercel
 
-Go to:
+Open Vercel and create a new project.
 
-```text
-https://vercel.com/
-```
+Import your forked GitHub repository.
 
-Create a new project and import your forked repository.
+## 3. Deploy
 
-### 3. Deploy
+Vercel will detect the included configuration.
 
-Configure the project according to the repository's included Vercel configuration and click:
+Click:
 
 **Deploy**
 
-After deployment, Vercel will provide you with an API URL similar to:
+After deployment, you will receive an address similar to:
 
 ```text
 https://your-project.vercel.app
 ```
 
-You can then use that URL from your frontend.
+Your API will then be accessible through:
 
-### Example
-
-```javascript
-const API_URL = "https://your-project.vercel.app";
-
-fetch(`${API_URL}/search?q=one%20piece`)
-  .then(res => res.json())
-  .then(data => console.log(data));
+```text
+https://your-project.vercel.app/pahe/naruto
 ```
 
 ---
 
-# 🛠️ Run Locally
+# 🖥️ Run Locally
 
 Clone the repository:
 
@@ -270,177 +469,235 @@ Enter the project:
 cd AnimePahe-API
 ```
 
-Install the required dependencies according to the project's package/dependency files.
+Install dependencies:
 
-Then start the application using the project's configured development/start command.
+```bash
+pip install -r requirements.txt
+```
 
-Your local API will be available at the local address printed by the server.
+Run the Flask application:
 
----
+```bash
+python wsgi.py
+```
 
-# 🏗️ Use It With Your Own Anime Website
-
-This project becomes especially useful when combined with a custom frontend.
-
-For example:
+The application is configured to run on:
 
 ```text
-                    AnimePahe API
-                          │
-             ┌────────────┼────────────┐
-             │            │            │
-             ▼            ▼            ▼
-          Search       Episodes     Sources
-             │            │            │
-             └────────────┼────────────┘
-                          ▼
-                    Your Frontend
-                          │
-                          ▼
-                    Video Player
+0.0.0.0
 ```
+
+You can then access the API locally through your configured Flask port.
 
 ---
 
 # 📁 Project Structure
 
-The exact structure may evolve as the project develops, but the repository is organized around the scraper/API workflow:
-
 ```text
 AnimePahe-API/
 │
-├── api/              # API/serverless entry points
-├── scraper/          # Scraping/data extraction logic
-├── requirements.txt  # Python dependencies
-├── vercel.json       # Vercel configuration
-├── main.py           # Application entry point
-└── README.md         # Documentation
+├── app/
+│   ├── controllers/
+│   │   └── pahe.py
+│   │
+│   ├── __init__.py
+│   └── routes.py
+│
+├── scrappers/
+│   └── pahe/
+│       ├── helper/
+│       │   ├── kwix.py
+│       │   └── main.py
+│       │
+│       ├── download.py
+│       └── main.py
+│
+├── chromedriver.exe
+├── config.py
+├── index.py
+├── requirements.txt
+├── vercel.json
+├── wsgi.py
+└── README.md
 ```
 
-> If your current repository uses different filenames/folders, update this section to match the actual tree.
+### `app/`
+
+Contains the Flask application and API routing.
+
+### `app/controllers/pahe.py`
+
+Defines the AnimePahe API endpoints:
+
+```text
+/pahe/
+/pahe/<query>
+/pahe/info/<id>
+/pahe/watch/<episodeId>
+```
+
+### `scrappers/pahe/main.py`
+
+Contains the main AnimePahe scraper responsible for:
+
+- Anime searching
+- Anime information
+- Episode retrieval
+
+### `scrappers/pahe/download.py`
+
+Handles the extraction of streaming/download sources.
+
+### `scrappers/pahe/helper/`
+
+Contains helper functions used during scraping and source extraction.
+
+### `vercel.json`
+
+Contains the Vercel deployment configuration.
+
+### `wsgi.py`
+
+Provides the WSGI entry point for running the Flask application.
 
 ---
 
-# ⚙️ Architecture
+# 🧠 Architecture
 
-The project follows a simple request flow:
+The backend is structured into three main layers:
 
 ```text
-Client
-  │
-  │ HTTP Request
-  ▼
-API Endpoint
-  │
-  ▼
-Scraper
-  │
-  │ Request
-  ▼
-Anime Source
-  │
-  │ HTML / API Data
-  ▼
-Parser
-  │
-  ▼
-Structured JSON
-  │
-  ▼
-Client
+                ┌─────────────────────┐
+                │       Client        │
+                │ Website / App / Bot │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │    Flask Routes     │
+                │   /pahe/* endpoints │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │   AnimePahe Class   │
+                │ Search + Episodes   │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │      Scrapers       │
+                │ BeautifulSoup /     │
+                │ curl_cffi / Selenium│
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │    AnimePahe       │
+                │      Source        │
+                └─────────────────────┘
 ```
-
-This keeps the frontend independent from the scraping logic.
 
 ---
 
-# 🌟 Why This Project?
+# 🧩 Build Your Own Anime Website
 
-Anime websites can change their page structure, request methods and data formats frequently.
+This API can be used as the backend for a custom anime frontend.
 
-Instead of writing scraping logic inside every individual project, this API provides a reusable layer:
+For example:
 
 ```text
-Without API:
+┌──────────────────────────────┐
+│        YOUR WEBSITE          │
+│                              │
+│  Search → Anime → Episodes   │
+│                    ↓         │
+│                Video Player  │
+└──────────────┬───────────────┘
+               │
+               │ REST API
+               ▼
+┌──────────────────────────────┐
+│       AnimePahe API          │
+│                              │
+│ /pahe/search                 │
+│ /pahe/info                   │
+│ /pahe/watch                  │
+└──────────────┬───────────────┘
+               │
+               ▼
+        AnimePahe Source
+```
 
-Frontend
-   ↓
-Scraping Logic
-   ↓
-Anime Website
+This lets you keep your frontend and scraping logic separate.
 
+---
 
-With AnimePahe API:
+# ⚡ Why Use This?
 
-Frontend
-   ↓
+Building a scraper from scratch for every anime project can be repetitive.
+
+With this API:
+
+```text
+Your Frontend
+      │
+      ▼
 AnimePahe API
-   ↓
+      │
+      ▼
 Scraping Logic
-   ↓
-Anime Website
+      │
+      ▼
+Anime Source
 ```
 
-This makes it easier to reuse the same backend across multiple projects.
+Your frontend only needs to understand JSON responses instead of handling the scraping process itself.
+
+This makes the project useful for:
+
+- 🎬 Anime streaming frontends
+- 📱 Mobile applications
+- 🤖 Bots
+- 🧪 Experiments
+- 🎓 Learning projects
+- 🔧 Personal projects
 
 ---
 
-# 🔥 Possible Projects You Can Build
+# ⚠️ Limitations
 
-You can use this API as the backend for:
+Because this project relies on scraping an external website, it is inherently dependent on that website.
 
-### 🎬 Anime Streaming Website
+Things can break if:
 
-Build your own frontend with:
+- The source website changes its HTML
+- API endpoints change
+- Anti-bot protection changes
+- Source extraction methods change
+- External streaming providers change
+- Selenium/Chrome compatibility changes
 
-- Anime search
-- Home page
-- Anime details
-- Episode lists
-- Video player
-- Watch history
-- Bookmarks
+The repository itself notes that scraping and source retrieval can take around **10–15 seconds** for some operations.
 
-### 📱 Mobile Application
-
-Use the API as a backend for an Android/iOS anime application.
-
-### 🤖 Discord Bot
-
-Create commands such as:
-
-```text
-/anime naruto
-/episodes naruto
-/watch naruto 1
-```
-
-# ⚠️ Important Notes
-
-This project is an **unofficial scraper** and is not affiliated with, endorsed by, or sponsored by AnimePahe.
-
-The project does not claim ownership of any anime content or media returned by the scraper.
-
-The availability and structure of scraped data may change if the source website changes its implementation.
-
-If the source website becomes unavailable or changes its protection/structure, parts of the API may stop working until the scraper is updated.
-
-**Use this project responsibly and respect the terms, policies and applicable laws of the services you access.**
+For this reason, this project should be treated as an unofficial community/developer tool rather than a guaranteed production service.
 
 ---
 
-# 🛡️ Responsible Usage
+# ⚠️ Legal & Responsible Use
 
-If you deploy your own public instance:
+This is an **unofficial scraper** and is not affiliated with or endorsed by AnimePahe.
 
-- Avoid excessive requests
-- Consider implementing rate limiting
-- Do not intentionally overload the source website
-- Cache responses where appropriate
-- Monitor your deployment's resource usage
-- Respect applicable terms of service and copyright laws
+The project itself does not host or claim ownership of anime content.
 
-For production applications, consider putting your API behind appropriate caching and request controls.
+If you deploy or use this project, you are responsible for complying with:
+
+- Applicable copyright laws
+- The terms of the websites/services you access
+- Applicable local regulations
+- Any restrictions imposed by third-party providers
+
+Please avoid excessive automated requests and consider implementing caching and rate limiting for public deployments.
 
 ---
 
@@ -448,72 +705,81 @@ For production applications, consider putting your API behind appropriate cachin
 
 Contributions are welcome!
 
-If you have an improvement, bug fix or new feature:
+### 1. Fork the repository
 
-1. Fork the repository
-2. Create a new branch
+```bash
+git clone https://github.com/kaustuklol/AnimePahe-API.git
+```
+
+### 2. Create a branch
 
 ```bash
 git checkout -b feature/my-feature
 ```
 
-3. Make your changes
-4. Commit your changes
+### 3. Make your changes
+
+### 4. Commit
 
 ```bash
+git add .
 git commit -m "Add my feature"
 ```
 
-5. Push the branch
+### 5. Push
 
 ```bash
 git push origin feature/my-feature
 ```
 
-6. Open a Pull Request
+### 6. Open a Pull Request
+
+Bug fixes, improvements, documentation updates and scraper improvements are welcome.
 
 ---
 
-# ⭐ Support the Project
+# ⭐ Support
 
-If you find this project useful:
+If you find this project useful, consider:
 
-- ⭐ Star the repository
-- 🍴 Fork it
-- 🐛 Report bugs
-- 💡 Suggest improvements
-- 🔧 Submit pull requests
+⭐ Starring the repository
 
-Every star and contribution helps the project grow.
+🍴 Forking the project
+
+🐛 Reporting bugs
+
+💡 Suggesting improvements
+
+🔧 Contributing code
 
 ---
 
 # 👨‍💻 Developer
 
-Built by **Kaustuk Jaiswal**
+**Kaustuk Jaiswal**
 
 GitHub:
 
-**https://github.com/kaustuklol**
+[https://github.com/kaustuklol](https://github.com/kaustuklol)
 
-Repository:
+Project:
 
-**https://github.com/kaustuklol/AnimePahe-API**
+[https://github.com/kaustuklol/AnimePahe-API](https://github.com/kaustuklol/AnimePahe-API)
 
 ---
 
 # 📄 License
 
-This project is open source and available under the **MIT License**.
+This project is intended to be open source under the **MIT License**.
 
-See the `LICENSE` file for more information.
+See the `LICENSE` file in the repository for the applicable license terms.
 
 ---
 
 <p align="center">
-  Made with ❤️ and lots of ☕ by <b>Kaustuk Jaiswal</b>
+  Made with ❤️ and ☕ by <b>Kaustuk Jaiswal</b>
 </p>
 
 <p align="center">
-  If this project helped you, consider giving it a ⭐
+  ⭐ Star the repository if you find it useful!
 </p>
